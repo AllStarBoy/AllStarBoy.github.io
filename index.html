@@ -3,48 +3,199 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>PawVoyage | Pet Travel Products</title>
-	<link rel="icon" type="image/png" href="logo.png">
+	<title>Project Emberhelm | Mobile MMORPG Plan</title>
 	<style>
+		:root {
+			color-scheme: dark;
+			--bg: #0f1222;
+			--surface: #1a1f36;
+			--surface-alt: #242b47;
+			--text: #f3f5ff;
+			--text-muted: #c4caeb;
+			--accent: #6de8b8;
+			--accent-2: #7cb7ff;
+		}
+
 		* { box-sizing: border-box; }
-		body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; font-family: Arial, sans-serif; color: #fff; background: linear-gradient(135deg, #17152f, #35206b 55%, #0c8b83); }
-		main { width: min(620px, 100%); padding: 56px 32px; text-align: center; border: 1px solid rgba(255,255,255,.2); border-radius: 24px; background: rgba(10,10,25,.35); box-shadow: 0 24px 80px rgba(0,0,0,.25); backdrop-filter: blur(12px); }
-		.logo { display: block; width: 132px; height: 132px; margin: 0 auto 28px; border-radius: 50%; object-fit: contain; }
-		p { color: #d7d5e4; line-height: 1.6; }
-		.eyebrow { color: #a7ffe9; font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
-		h1 { margin: 12px 0; font-size: clamp(42px, 9vw, 76px); line-height: .98; letter-spacing: -.06em; }
-		.description { max-width: 470px; margin: 20px auto 30px; font-size: 17px; }
-		form { display: flex; gap: 8px; max-width: 480px; margin: auto; padding: 6px; border-radius: 13px; background: rgba(255,255,255,.12); }
-		input, button { border: 0; border-radius: 9px; padding: 14px 16px; font: inherit; }
-		input { min-width: 0; flex: 1; color: #fff; outline: none; background: transparent; }
-		input::placeholder { color: #bbb8c9; }
-		button { color: #111326; font-weight: 700; cursor: pointer; background: #a7ffe9; }
-		button:hover { background: #fff; }
-		#message { min-height: 24px; margin: 14px 0 0; color: #a7ffe9; font-size: 14px; }
-		small { color: #aaa7b9; }
-		@media (max-width: 520px) { main { padding: 42px 20px; } form { flex-direction: column; background: transparent; } input, button { width: 100%; background: rgba(255,255,255,.12); } button { color: #111326; background: #a7ffe9; } }
+
+		body {
+			margin: 0;
+			font-family: Arial, sans-serif;
+			background: radial-gradient(circle at top, #1e2752, var(--bg) 60%);
+			color: var(--text);
+		}
+
+		main {
+			width: min(980px, 100%);
+			margin: 0 auto;
+			padding: 28px 18px 56px;
+		}
+
+		header {
+			background: rgba(26, 31, 54, 0.88);
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			border-radius: 18px;
+			padding: 24px;
+			margin-bottom: 18px;
+		}
+
+		.eyebrow {
+			margin: 0 0 8px;
+			color: var(--accent);
+			font-size: 12px;
+			font-weight: 700;
+			letter-spacing: .16em;
+			text-transform: uppercase;
+		}
+
+		h1 {
+			margin: 0;
+			font-size: clamp(30px, 6vw, 52px);
+			line-height: 1.05;
+		}
+
+		.subtitle {
+			margin: 12px 0 0;
+			max-width: 800px;
+			color: var(--text-muted);
+			line-height: 1.55;
+		}
+
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			gap: 12px;
+		}
+
+		.card {
+			background: var(--surface);
+			border: 1px solid rgba(255, 255, 255, 0.14);
+			border-radius: 14px;
+			padding: 18px;
+		}
+
+		.card h2 {
+			margin: 0 0 10px;
+			color: var(--accent-2);
+			font-size: 19px;
+		}
+
+		.card p,
+		.card li {
+			color: var(--text-muted);
+			line-height: 1.5;
+		}
+
+		.card ul {
+			margin: 0;
+			padding-left: 18px;
+		}
+
+		.status {
+			margin-top: 14px;
+			padding: 14px 16px;
+			border-radius: 12px;
+			background: var(--surface-alt);
+			border: 1px solid rgba(109, 232, 184, .35);
+		}
+
+		.status strong {
+			color: var(--accent);
+		}
 	</style>
 </head>
 <body>
 	<main>
-		<img class="logo" src="logo.png" alt="PawVoyage logo">
-		<div class="eyebrow">Pet travel products, coming soon</div>
-		<h1>Travel Better. Wag Happier.</h1>
-		<p class="description">PawVoyage is bringing practical, comfortable, and adventure-ready products to pets and the people who travel with them. Join the list for first access to our launch.</p>
-		<form id="waitlist">
-			<label for="email" hidden>Email address</label>
-			<input id="email" type="email" placeholder="Enter your email address" required>
-			<button type="submit">Get launch access</button>
-		</form>
-		<p id="message" role="status"></p>
-		<small>New pet travel finds, launch updates, and special offers.</small>
+		<header>
+			<p class="eyebrow">OSRS-inspired mobile MMORPG</p>
+			<h1>Project Emberhelm Execution Plan</h1>
+			<p class="subtitle">A practical build path for launching a mobile-first online RPG with one cross-platform client, a server-authoritative backend, and a focused MVP scope.</p>
+		</header>
+
+		<section class="grid" aria-label="implementation roadmap">
+			<article class="card">
+				<h2>1) MVP Scope</h2>
+				<ul>
+					<li>Core loop: movement, combat, inventory, quests.</li>
+					<li>Single starting zone with a compact progression path.</li>
+					<li>No full-feature parity with OSRS at launch.</li>
+				</ul>
+			</article>
+
+			<article class="card">
+				<h2>2) Engine Choice</h2>
+				<ul>
+					<li>Use Unity or Godot for Android + iOS from one codebase.</li>
+					<li>Finalize based on team familiarity and tooling needs.</li>
+					<li>Keep game logic structured for future platform expansion.</li>
+				</ul>
+			</article>
+
+			<article class="card">
+				<h2>3) Online Architecture</h2>
+				<ul>
+					<li>Client + backend from day one.</li>
+					<li>Accounts, persistence, world state, inventory, and combat sync.</li>
+					<li>Chat service and reliable data storage included in MVP platform.</li>
+				</ul>
+			</article>
+
+			<article class="card">
+				<h2>4) Mobile-First UX</h2>
+				<ul>
+					<li>Tap movement + optional virtual joystick.</li>
+					<li>Scalable HUD, readable text, touch-safe controls.</li>
+					<li>Battery/performance budgets tracked per milestone.</li>
+				</ul>
+			</article>
+
+			<article class="card">
+				<h2>5) Vertical Slice</h2>
+				<ul>
+					<li>One zone, few enemy types, one quest chain.</li>
+					<li>Basic loot, equipment, and progression feedback.</li>
+					<li>Playable end-to-end loop before content expansion.</li>
+				</ul>
+			</article>
+
+			<article class="card">
+				<h2>6) Networking & Anti-Cheat</h2>
+				<ul>
+					<li>Server-authoritative actions for combat and inventory.</li>
+					<li>Input validation and request rate limits.</li>
+					<li>Cheat telemetry for anomaly detection.</li>
+				</ul>
+			</article>
+
+			<article class="card">
+				<h2>7) Device Optimization</h2>
+				<ul>
+					<li>Frequent tests on low/mid-range phones.</li>
+					<li>Optimize draw calls, memory, and asset size.</li>
+					<li>Measure network usage under real gameplay loads.</li>
+				</ul>
+			</article>
+
+			<article class="card">
+				<h2>8) Content Expansion</h2>
+				<ul>
+					<li>Add skills, economy, social systems after core stability.</li>
+					<li>Expand world zones in iterations.</li>
+					<li>Keep release cadence tied to telemetry outcomes.</li>
+				</ul>
+			</article>
+
+			<article class="card">
+				<h2>9) Live Ops Readiness</h2>
+				<ul>
+					<li>Patching pipeline and rollback strategy.</li>
+					<li>Telemetry dashboards, moderation, backup/recovery.</li>
+					<li>Support workflow for launch and post-launch events.</li>
+				</ul>
+			</article>
+		</section>
+
+		<p class="status"><strong>Current objective:</strong> deliver the vertical slice and validate performance/security baselines before adding large-scale content.</p>
 	</main>
-	<script>
-		document.querySelector('#waitlist').addEventListener('submit', function (event) {
-			event.preventDefault();
-			document.querySelector('#message').textContent = 'Thanks! You’re on the list.';
-			this.reset();
-		});
-	</script>
 </body>
 </html>
