@@ -1,201 +1,484 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Project Emberhelm | Mobile MMORPG Plan</title>
-	<style>
-		:root {
-			color-scheme: dark;
-			--bg: #0f1222;
-			--surface: #1a1f36;
-			--surface-alt: #242b47;
-			--text: #f3f5ff;
-			--text-muted: #c4caeb;
-			--accent: #6de8b8;
-			--accent-2: #7cb7ff;
-		}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Emberhelm | Playable MVP</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f1222;
+      --surface: #1a1f36;
+      --surface-alt: #242b47;
+      --text: #f3f5ff;
+      --text-muted: #c4caeb;
+      --accent: #6de8b8;
+      --danger: #ff7d92;
+      --warn: #ffd36d;
+    }
 
-		* { box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
-		body {
-			margin: 0;
-			font-family: Arial, sans-serif;
-			background: radial-gradient(circle at top, #1e2752, var(--bg) 60%);
-			color: var(--text);
-		}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #1e2752, var(--bg) 60%);
+      color: var(--text);
+    }
 
-		main {
-			width: min(980px, 100%);
-			margin: 0 auto;
-			padding: 28px 18px 56px;
-		}
+    main {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
 
-		header {
-			background: rgba(26, 31, 54, 0.88);
-			border: 1px solid rgba(255, 255, 255, 0.14);
-			border-radius: 18px;
-			padding: 24px;
-			margin-bottom: 18px;
-		}
+    @media (min-width: 940px) {
+      main {
+        grid-template-columns: minmax(580px, 1fr) 320px;
+        align-items: start;
+      }
+    }
 
-		.eyebrow {
-			margin: 0 0 8px;
-			color: var(--accent);
-			font-size: 12px;
-			font-weight: 700;
-			letter-spacing: .16em;
-			text-transform: uppercase;
-		}
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      padding: 14px;
+    }
 
-		h1 {
-			margin: 0;
-			font-size: clamp(30px, 6vw, 52px);
-			line-height: 1.05;
-		}
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(24px, 5vw, 36px);
+    }
 
-		.subtitle {
-			margin: 12px 0 0;
-			max-width: 800px;
-			color: var(--text-muted);
-			line-height: 1.55;
-		}
+    p {
+      margin: 6px 0;
+      color: var(--text-muted);
+    }
 
-		.grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-			gap: 12px;
-		}
+    #game {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: #11162e;
+      display: block;
+      touch-action: none;
+    }
 
-		.card {
-			background: var(--surface);
-			border: 1px solid rgba(255, 255, 255, 0.14);
-			border-radius: 14px;
-			padding: 18px;
-		}
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 14px;
+    }
 
-		.card h2 {
-			margin: 0 0 10px;
-			color: var(--accent-2);
-			font-size: 19px;
-		}
+    .stat {
+      background: var(--surface-alt);
+      border-radius: 9px;
+      padding: 10px;
+    }
 
-		.card p,
-		.card li {
-			color: var(--text-muted);
-			line-height: 1.5;
-		}
+    .label {
+      display: block;
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
 
-		.card ul {
-			margin: 0;
-			padding-left: 18px;
-		}
+    .value { font-weight: 700; }
 
-		.status {
-			margin-top: 14px;
-			padding: 14px 16px;
-			border-radius: 12px;
-			background: var(--surface-alt);
-			border: 1px solid rgba(109, 232, 184, .35);
-		}
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
 
-		.status strong {
-			color: var(--accent);
-		}
-	</style>
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #2f3b69;
+      color: var(--text);
+    }
+
+    button:active { transform: translateY(1px); }
+
+    .quest { color: var(--accent); }
+    .danger { color: var(--danger); }
+    .warn { color: var(--warn); }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+      color: var(--text-muted);
+    }
+  </style>
 </head>
 <body>
-	<main>
-		<header>
-			<p class="eyebrow">OSRS-inspired mobile MMORPG</p>
-			<h1>Project Emberhelm Execution Plan</h1>
-			<p class="subtitle">A practical build path for launching a mobile-first online RPG with one cross-platform client, a server-authoritative backend, and a focused MVP scope.</p>
-		</header>
+  <main>
+    <section class="card">
+      <h1>Project Emberhelm – Vertical Slice</h1>
+      <p>Move with <strong>WASD / Arrow keys</strong>. Press <strong>Space</strong> or tap <strong>Attack</strong> to hit nearby slimes. Press <strong>H</strong> or tap <strong>Use Potion</strong> to heal.</p>
+      <canvas id="game" width="780" height="480" aria-label="Emberhelm game area"></canvas>
+      <div class="controls">
+        <button id="attackBtn" type="button">Attack</button>
+        <button id="healBtn" type="button">Use Potion</button>
+      </div>
+    </section>
 
-		<section class="grid" aria-label="implementation roadmap">
-			<article class="card">
-				<h2>1) MVP Scope</h2>
-				<ul>
-					<li>Core loop: movement, combat, inventory, quests.</li>
-					<li>Single starting zone with a compact progression path.</li>
-					<li>No full-feature parity with OSRS at launch.</li>
-				</ul>
-			</article>
+    <aside class="card">
+      <h2 style="margin-top:0">Status</h2>
+      <p id="quest" class="quest">Quest: Defeat 10 slimes (0/10)</p>
+      <p id="message">Welcome to Emberhelm.</p>
 
-			<article class="card">
-				<h2>2) Engine Choice</h2>
-				<ul>
-					<li>Use Unity or Godot for Android + iOS from one codebase.</li>
-					<li>Finalize based on team familiarity and tooling needs.</li>
-					<li>Keep game logic structured for future platform expansion.</li>
-				</ul>
-			</article>
+      <div class="stats">
+        <div class="stat"><span class="label">HP</span><span class="value" id="hp">100 / 100</span></div>
+        <div class="stat"><span class="label">Gold</span><span class="value" id="gold">0</span></div>
+        <div class="stat"><span class="label">Level</span><span class="value" id="level">1</span></div>
+        <div class="stat"><span class="label">XP</span><span class="value" id="xp">0 / 100</span></div>
+        <div class="stat"><span class="label">Potions</span><span class="value" id="potions">2</span></div>
+        <div class="stat"><span class="label">Enemies</span><span class="value" id="enemies">0</span></div>
+      </div>
 
-			<article class="card">
-				<h2>3) Online Architecture</h2>
-				<ul>
-					<li>Client + backend from day one.</li>
-					<li>Accounts, persistence, world state, inventory, and combat sync.</li>
-					<li>Chat service and reliable data storage included in MVP platform.</li>
-				</ul>
-			</article>
+      <h3>Inventory</h3>
+      <ul>
+        <li>Iron Sword (starter)</li>
+        <li>Leather Armor (starter)</li>
+        <li id="invPotions">Health Potion x2</li>
+      </ul>
+    </aside>
+  </main>
 
-			<article class="card">
-				<h2>4) Mobile-First UX</h2>
-				<ul>
-					<li>Tap movement + optional virtual joystick.</li>
-					<li>Scalable HUD, readable text, touch-safe controls.</li>
-					<li>Battery/performance budgets tracked per milestone.</li>
-				</ul>
-			</article>
+  <script>
+    (() => {
+      const canvas = document.getElementById('game');
+      const ctx = canvas.getContext('2d');
 
-			<article class="card">
-				<h2>5) Vertical Slice</h2>
-				<ul>
-					<li>One zone, few enemy types, one quest chain.</li>
-					<li>Basic loot, equipment, and progression feedback.</li>
-					<li>Playable end-to-end loop before content expansion.</li>
-				</ul>
-			</article>
+      const hpEl = document.getElementById('hp');
+      const goldEl = document.getElementById('gold');
+      const levelEl = document.getElementById('level');
+      const xpEl = document.getElementById('xp');
+      const potionsEl = document.getElementById('potions');
+      const enemiesEl = document.getElementById('enemies');
+      const questEl = document.getElementById('quest');
+      const messageEl = document.getElementById('message');
+      const invPotionsEl = document.getElementById('invPotions');
 
-			<article class="card">
-				<h2>6) Networking & Anti-Cheat</h2>
-				<ul>
-					<li>Server-authoritative actions for combat and inventory.</li>
-					<li>Input validation and request rate limits.</li>
-					<li>Cheat telemetry for anomaly detection.</li>
-				</ul>
-			</article>
+      const attackBtn = document.getElementById('attackBtn');
+      const healBtn = document.getElementById('healBtn');
 
-			<article class="card">
-				<h2>7) Device Optimization</h2>
-				<ul>
-					<li>Frequent tests on low/mid-range phones.</li>
-					<li>Optimize draw calls, memory, and asset size.</li>
-					<li>Measure network usage under real gameplay loads.</li>
-				</ul>
-			</article>
+      const world = { width: canvas.width, height: canvas.height };
+      const keys = new Set();
 
-			<article class="card">
-				<h2>8) Content Expansion</h2>
-				<ul>
-					<li>Add skills, economy, social systems after core stability.</li>
-					<li>Expand world zones in iterations.</li>
-					<li>Keep release cadence tied to telemetry outcomes.</li>
-				</ul>
-			</article>
+      const player = {
+        x: world.width / 2,
+        y: world.height / 2,
+        radius: 13,
+        speed: 190,
+        maxHp: 100,
+        hp: 100,
+        gold: 0,
+        level: 1,
+        xp: 0,
+        xpToNext: 100,
+        potions: 2,
+        attackRange: 56,
+        attackDamage: 34,
+        attackCooldownMs: 350,
+        lastAttackAt: 0,
+        defeated: 0
+      };
 
-			<article class="card">
-				<h2>9) Live Ops Readiness</h2>
-				<ul>
-					<li>Patching pipeline and rollback strategy.</li>
-					<li>Telemetry dashboards, moderation, backup/recovery.</li>
-					<li>Support workflow for launch and post-launch events.</li>
-				</ul>
-			</article>
-		</section>
+      const enemies = [];
+      let gameOver = false;
+      let win = false;
+      let lastTime = performance.now();
+      let spawnTimer = 0;
+      let messageTimer = 0;
 
-		<p class="status"><strong>Current objective:</strong> deliver the vertical slice and validate performance/security baselines before adding large-scale content.</p>
-	</main>
+      function setMessage(text, ms = 1800) {
+        messageEl.textContent = text;
+        messageTimer = ms;
+      }
+
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
+      function spawnEnemy() {
+        const edge = Math.floor(Math.random() * 4);
+        let x = 0;
+        let y = 0;
+
+        if (edge === 0) { x = Math.random() * world.width; y = -20; }
+        else if (edge === 1) { x = world.width + 20; y = Math.random() * world.height; }
+        else if (edge === 2) { x = Math.random() * world.width; y = world.height + 20; }
+        else { x = -20; y = Math.random() * world.height; }
+
+        enemies.push({
+          x,
+          y,
+          radius: 11,
+          hp: 40 + player.level * 10,
+          speed: 42 + Math.random() * 28 + player.level * 2,
+          damage: 7 + player.level,
+          attackCd: 0
+        });
+      }
+
+      function gainXp(amount) {
+        player.xp += amount;
+        while (player.xp >= player.xpToNext) {
+          player.xp -= player.xpToNext;
+          player.level += 1;
+          player.maxHp += 12;
+          player.hp = player.maxHp;
+          player.attackDamage += 6;
+          player.xpToNext = Math.floor(player.xpToNext * 1.25);
+          setMessage('Level up! Stats increased.', 2200);
+        }
+      }
+
+      function tryAttack() {
+        if (gameOver || win) return;
+        const now = performance.now();
+        if (now - player.lastAttackAt < player.attackCooldownMs) return;
+        player.lastAttackAt = now;
+
+        let hit = false;
+        for (let i = enemies.length - 1; i >= 0; i -= 1) {
+          const e = enemies[i];
+          const dx = e.x - player.x;
+          const dy = e.y - player.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist <= player.attackRange + e.radius) {
+            e.hp -= player.attackDamage;
+            hit = true;
+            if (e.hp <= 0) {
+              enemies.splice(i, 1);
+              player.defeated += 1;
+              player.gold += 5 + Math.floor(Math.random() * 8);
+              gainXp(30);
+              if (Math.random() < 0.25) {
+                player.potions += 1;
+                setMessage('Enemy dropped a potion!');
+              }
+              if (player.defeated >= 10) {
+                win = true;
+                setMessage('Quest complete! You cleared the zone.', 60000);
+              }
+            }
+            break;
+          }
+        }
+
+        if (!hit) {
+          setMessage('No enemy in range.', 900);
+        }
+      }
+
+      function usePotion() {
+        if (gameOver || win) return;
+        if (player.potions <= 0) {
+          setMessage('No potions left.', 1200);
+          return;
+        }
+        if (player.hp >= player.maxHp) {
+          setMessage('HP already full.', 1200);
+          return;
+        }
+        player.potions -= 1;
+        player.hp = Math.min(player.maxHp, player.hp + 42);
+        setMessage('Potion used.');
+      }
+
+      function updateUi() {
+        hpEl.textContent = `${Math.ceil(player.hp)} / ${player.maxHp}`;
+        goldEl.textContent = String(player.gold);
+        levelEl.textContent = String(player.level);
+        xpEl.textContent = `${player.xp} / ${player.xpToNext}`;
+        potionsEl.textContent = String(player.potions);
+        enemiesEl.textContent = String(enemies.length);
+        questEl.textContent = `Quest: Defeat 10 slimes (${player.defeated}/10)`;
+        invPotionsEl.textContent = `Health Potion x${player.potions}`;
+      }
+
+      function update(delta) {
+        if (!gameOver && !win) {
+          let dx = 0;
+          let dy = 0;
+          if (keys.has('w') || keys.has('arrowup')) dy -= 1;
+          if (keys.has('s') || keys.has('arrowdown')) dy += 1;
+          if (keys.has('a') || keys.has('arrowleft')) dx -= 1;
+          if (keys.has('d') || keys.has('arrowright')) dx += 1;
+
+          if (dx !== 0 || dy !== 0) {
+            const mag = Math.hypot(dx, dy) || 1;
+            player.x += (dx / mag) * player.speed * delta;
+            player.y += (dy / mag) * player.speed * delta;
+          }
+
+          player.x = clamp(player.x, player.radius, world.width - player.radius);
+          player.y = clamp(player.y, player.radius, world.height - player.radius);
+
+          spawnTimer -= delta;
+          if (spawnTimer <= 0 && enemies.length < 12) {
+            spawnEnemy();
+            const pace = Math.max(0.35, 1.2 - player.level * 0.06);
+            spawnTimer = pace + Math.random() * 0.5;
+          }
+
+          for (const e of enemies) {
+            const ex = player.x - e.x;
+            const ey = player.y - e.y;
+            const dist = Math.hypot(ex, ey) || 1;
+            e.x += (ex / dist) * e.speed * delta;
+            e.y += (ey / dist) * e.speed * delta;
+
+            e.attackCd -= delta;
+            const touching = dist <= player.radius + e.radius + 2;
+            if (touching && e.attackCd <= 0) {
+              player.hp -= e.damage;
+              e.attackCd = 0.9;
+              setMessage(`You were hit for ${e.damage}.`, 500);
+              if (player.hp <= 0) {
+                player.hp = 0;
+                gameOver = true;
+                setMessage('You were defeated. Refresh to retry.', 60000);
+              }
+            }
+          }
+        }
+
+        if (messageTimer > 0) {
+          messageTimer -= delta * 1000;
+          if (messageTimer <= 0 && !win && !gameOver) {
+            messageEl.textContent = 'Keep pushing forward.';
+          }
+        }
+
+        updateUi();
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, world.width, world.height);
+
+        ctx.fillStyle = '#182041';
+        ctx.fillRect(0, 0, world.width, world.height);
+
+        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        for (let x = 0; x < world.width; x += 40) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, world.height);
+          ctx.stroke();
+        }
+        for (let y = 0; y < world.height; y += 40) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(world.width, y);
+          ctx.stroke();
+        }
+
+        ctx.fillStyle = 'rgba(109,232,184,0.18)';
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, player.attackRange, 0, Math.PI * 2);
+        ctx.fill();
+
+        for (const e of enemies) {
+          ctx.fillStyle = '#b64a76';
+          ctx.beginPath();
+          ctx.arc(e.x, e.y, e.radius, 0, Math.PI * 2);
+          ctx.fill();
+
+          const hpPct = clamp(e.hp / (40 + player.level * 10), 0, 1);
+          ctx.fillStyle = '#2a1a24';
+          ctx.fillRect(e.x - 14, e.y - 18, 28, 4);
+          ctx.fillStyle = '#ff7d92';
+          ctx.fillRect(e.x - 14, e.y - 18, 28 * hpPct, 4);
+        }
+
+        ctx.fillStyle = '#6de8b8';
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#0f1222';
+        ctx.font = 'bold 12px Arial';
+        ctx.fillText('You', player.x - 10, player.y + 4);
+
+        if (win || gameOver) {
+          ctx.fillStyle = 'rgba(0,0,0,0.5)';
+          ctx.fillRect(0, 0, world.width, world.height);
+          ctx.fillStyle = win ? '#6de8b8' : '#ff7d92';
+          ctx.font = 'bold 42px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText(win ? 'Quest Complete!' : 'Defeated', world.width / 2, world.height / 2);
+          ctx.font = '18px Arial';
+          ctx.fillStyle = '#f3f5ff';
+          ctx.fillText('Refresh the page to play again.', world.width / 2, world.height / 2 + 36);
+          ctx.textAlign = 'start';
+        }
+      }
+
+      function frame(now) {
+        const delta = Math.min(0.033, (now - lastTime) / 1000);
+        lastTime = now;
+        update(delta);
+        draw();
+        requestAnimationFrame(frame);
+      }
+
+      window.addEventListener('keydown', (event) => {
+        const key = event.key.toLowerCase();
+        if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(key)) {
+          keys.add(key);
+          event.preventDefault();
+        } else if (key === ' ') {
+          tryAttack();
+          event.preventDefault();
+        } else if (key === 'h') {
+          usePotion();
+          event.preventDefault();
+        }
+      });
+
+      window.addEventListener('keyup', (event) => {
+        keys.delete(event.key.toLowerCase());
+      });
+
+      attackBtn.addEventListener('click', tryAttack);
+      healBtn.addEventListener('click', usePotion);
+
+      canvas.addEventListener('pointerdown', (event) => {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const tx = (event.clientX - rect.left) * scaleX;
+        const ty = (event.clientY - rect.top) * scaleY;
+
+        const dx = tx - player.x;
+        const dy = ty - player.y;
+        const d = Math.hypot(dx, dy) || 1;
+        const step = 52;
+
+        if (!gameOver && !win) {
+          player.x = clamp(player.x + (dx / d) * step, player.radius, world.width - player.radius);
+          player.y = clamp(player.y + (dy / d) * step, player.radius, world.height - player.radius);
+          tryAttack();
+        }
+      });
+
+      setMessage('Defeat 10 slimes to finish the quest.', 2600);
+      requestAnimationFrame(frame);
+    })();
+  </script>
 </body>
 </html>
