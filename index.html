@@ -7,22 +7,22 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0f1222;
-      --surface: #1a1f36;
-      --surface-alt: #242b47;
-      --text: #f3f5ff;
-      --text-muted: #c4caeb;
-      --accent: #6de8b8;
-      --danger: #ff7d92;
-      --warn: #ffd36d;
+      --bg: #1b140c;
+      --surface: #2e2418;
+      --surface-alt: #3a2e20;
+      --text: #f5e6c6;
+      --text-muted: #d3bf96;
+      --accent: #e2bf70;
+      --danger: #e2765f;
+      --warn: #e2bf70;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #1e2752, var(--bg) 60%);
+      font-family: "Trebuchet MS", Verdana, sans-serif;
+      background: radial-gradient(circle at top, #4a3925, var(--bg) 65%);
       color: var(--text);
     }
 
@@ -44,14 +44,17 @@
 
     .card {
       background: var(--surface);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 14px;
+      border: 2px solid #5d4b33;
+      box-shadow: inset 0 0 0 2px #1a130d, 0 6px 16px rgba(0, 0, 0, 0.35);
+      border-radius: 8px;
       padding: 14px;
     }
 
     h1 {
       margin: 0 0 8px;
       font-size: clamp(24px, 5vw, 36px);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     p {
@@ -66,9 +69,10 @@
 
     #game {
       width: 100%;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      background: #11162e;
+      border-radius: 6px;
+      border: 2px solid #8b734b;
+      box-shadow: inset 0 0 0 2px #2d2418;
+      background: #2d3f1f;
       display: block;
       touch-action: none;
     }
@@ -89,8 +93,8 @@
 
     .overlayCard {
       background: var(--surface);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
+      border: 2px solid #6f593d;
+      border-radius: 8px;
       padding: 16px;
       width: min(420px, 100%);
     }
@@ -110,7 +114,8 @@
 
     .stat {
       background: var(--surface-alt);
-      border-radius: 9px;
+      border: 1px solid #5b4931;
+      border-radius: 6px;
       padding: 10px;
     }
 
@@ -131,13 +136,15 @@
     }
 
     button {
-      border: 0;
-      border-radius: 10px;
+      border: 1px solid #9d835a;
+      border-radius: 6px;
       padding: 10px 12px;
       font-weight: 700;
       cursor: pointer;
-      background: #2f3b69;
+      background: linear-gradient(#80643f, #5d472c);
       color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
     }
 
     button:active { transform: translateY(1px); }
@@ -156,14 +163,14 @@
 <body>
   <main>
     <section class="card">
-      <h1>Project Emberhelm – Vertical Slice</h1>
+      <h1>Emberhelm – Training Grounds</h1>
       <p>Move with <strong>WASD / Arrow keys</strong>. Press <strong>Space</strong> or tap <strong>Attack</strong> to hit nearby slimes. Press <strong>H</strong> or tap <strong>Use Potion</strong> to heal.</p>
 
       <div id="gameWrap">
         <canvas id="game" width="780" height="480" aria-label="Emberhelm game area"></canvas>
         <div id="menuOverlay" class="overlay">
           <div class="overlayCard">
-            <h2>Project Emberhelm</h2>
+            <h2>Emberhelm Outpost</h2>
             <p id="overlayText">Defeat 10 slimes to clear the zone.</p>
             <button id="startBtn" type="button">Start Run</button>
           </div>
@@ -178,9 +185,9 @@
     </section>
 
     <aside class="card">
-      <h2 style="margin-top:0">Status</h2>
-      <p id="quest" class="quest">Quest: Defeat 10 slimes (0/10)</p>
-      <p id="message">Welcome to Emberhelm.</p>
+      <h2 style="margin-top:0">Adventurer Panel</h2>
+      <p id="quest" class="quest">Task: Defeat 10 slimes (0/10)</p>
+      <p id="message">Welcome to Emberhelm Outpost.</p>
 
       <div class="stats">
         <div class="stat"><span class="label">HP</span><span class="value" id="hp">100 / 100</span></div>
@@ -474,7 +481,7 @@
         xpEl.textContent = `${player.xp} / ${player.xpToNext}`;
         potionsEl.textContent = String(player.potions);
         enemiesEl.textContent = String(enemies.length);
-        questEl.textContent = `Quest: Defeat 10 slimes (${player.defeated}/10)`;
+        questEl.textContent = `Task: Defeat 10 slimes (${player.defeated}/10)`;
         invPotionsEl.textContent = `Health Potion x${player.potions}`;
         bestKillsEl.textContent = String(best.kills);
         bestGoldEl.textContent = String(best.gold);
@@ -540,10 +547,10 @@
       function draw() {
         ctx.clearRect(0, 0, world.width, world.height);
 
-        ctx.fillStyle = '#182041';
+        ctx.fillStyle = '#3f5428';
         ctx.fillRect(0, 0, world.width, world.height);
 
-        ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
         for (let x = 0; x < world.width; x += 40) {
           ctx.beginPath();
           ctx.moveTo(x, 0);
@@ -557,31 +564,31 @@
           ctx.stroke();
         }
 
-        ctx.fillStyle = 'rgba(109,232,184,0.18)';
+        ctx.fillStyle = 'rgba(226,191,112,0.16)';
         ctx.beginPath();
         ctx.arc(player.x, player.y, player.attackRange, 0, Math.PI * 2);
         ctx.fill();
 
         for (const e of enemies) {
-          ctx.fillStyle = '#b64a76';
+          ctx.fillStyle = '#4f7a3a';
           ctx.beginPath();
           ctx.arc(e.x, e.y, e.radius, 0, Math.PI * 2);
           ctx.fill();
 
           const hpPct = clamp(e.hp / e.maxHp, 0, 1);
-          ctx.fillStyle = '#2a1a24';
+          ctx.fillStyle = '#271f16';
           ctx.fillRect(e.x - 14, e.y - 18, 28, 4);
-          ctx.fillStyle = '#ff7d92';
+          ctx.fillStyle = '#b6d46a';
           ctx.fillRect(e.x - 14, e.y - 18, 28 * hpPct, 4);
         }
 
-        ctx.fillStyle = '#6de8b8';
+        ctx.fillStyle = '#e2bf70';
         ctx.beginPath();
         ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.fillStyle = '#0f1222';
-        ctx.font = 'bold 12px Arial';
+        ctx.fillStyle = '#221a12';
+        ctx.font = 'bold 12px Trebuchet MS';
         ctx.fillText('You', player.x - 10, player.y + 4);
       }
 
